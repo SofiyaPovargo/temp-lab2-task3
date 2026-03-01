@@ -1,25 +1,11 @@
 name: C Build
-
-on:
-  push:
-    branches: [ main, welcome-workflow ]
-  pull_request:
-    branches: [ main ]
-
+on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Install build essentials
-      run: sudo apt-get update && sudo apt-get install -y build-essential
-
-    - name: Build with Make
-      run: make
-
-    - name: Run the program (with input simulation)
-      run: |
-        echo -e "2\nИванов И.И.\n123-45-67\n2010\n5\n15\n100.50\n50.25\nПетров П.П.\n987-65-43\n2020\n3\n10\n200.75\n150.30\n123-45-67" | ./abonent_program
+      - uses: actions/checkout@v4
+      - name: Build with Make
+        run: make
+      - name: Run program
+        run: ./abonent_program
